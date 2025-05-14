@@ -5,15 +5,13 @@ using UnityEngine;
 public class Pathfinder
 {
 
-    internal PathfindManager manager; 
-
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
     public Grid<PathNode> Grid { get => _grid; }
     private Grid<PathNode> _grid;
-    private List<PathNode> _openList;
-    private List<PathNode> _closedList;
+    private List<PathNode> _openList; // nodi da esaminare
+    private List<PathNode> _closedList; // nodi già esaminati
 
     public Pathfinder(int width, int height, int nodeSize, Vector3 worldPositionOrigin)
     {

@@ -41,11 +41,29 @@ public class PathfindManager : Singleton<PathfindManager>
         return true;
     }
 
+    static public void RandomizeObstacles()
+    {
+        if (This == null)
+        {
+            Debug.LogWarning("Pathfind Manager not instanced properly");
+            return;
+        }
+        for (int row = 0; row < This._pathfinder.Grid.Height; row++)
+        {
+            for (int column = 0; column < This._pathfinder.Grid.Width; column++)
+            {
+                PathNode pathNode = This._pathfinder.Grid.GetGridObject(row, column);
+                pathNode.IsWalkable = Random.Range(0f, 1f) > 0.3f;
+            }
+        }
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
         VisualizeGrid();
+        VisualizeObstacles();
     }
 #endif
 
@@ -57,7 +75,7 @@ public class PathfindManager : Singleton<PathfindManager>
         {
             for (int column = 0; column < _pathfinder.Grid.Width; column++)
             {
-                Vector3 tileCenter = _pathfinder.Grid.GetWorldPosition(column, row);
+                Vector3 tileCenter = _pathfinder.Grid.GetWorldPosition(row, column);
                 Vector3 vertex1 = new Vector3(tileCenter.x - _pathfinder.Grid.CellSize * 0.5f, 0f, tileCenter.z - _pathfinder.Grid.CellSize * 0.5f);
                 Vector3 vertex2 = new Vector3(tileCenter.x + _pathfinder.Grid.CellSize * 0.5f, 0f, tileCenter.z + _pathfinder.Grid.CellSize * 0.5f);
                 Vector3 vertex3 = new Vector3(tileCenter.x + _pathfinder.Grid.CellSize * 0.5f, 0f, tileCenter.z - _pathfinder.Grid.CellSize * 0.5f);
@@ -66,6 +84,27 @@ public class PathfindManager : Singleton<PathfindManager>
                 Gizmos.DrawLine(vertex4, vertex2);
                 Gizmos.DrawLine(vertex2, vertex3);
                 Gizmos.DrawLine(vertex3, vertex1);
+            }
+        }
+    }
+
+    private void VisualizeObstacles()
+    {
+        if (_pathfinder == null) return;
+        for (int row = 0; row < _pathfinder.Grid.Height; row++)
+        {
+            for (int column = 0; column < _pathfinder.Grid.Width; column++)
+            {
+                PathNode pathNode = _pathfinder.Grid.GetGridObject(row, column);
+                if (pathNode.IsWalkable)
+                {
+                    Gizmos.color = Color.green;
+                }
+                else
+                {
+                    Gizmos.color = Color.red;
+                }
+                Gizmos.DrawCube(_pathfinder.Grid.GetWorldPosition(row, column), Vector3.one * _pathfinder.Grid.CellSize * 0.5f);
             }
         }
     }
