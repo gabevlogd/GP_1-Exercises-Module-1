@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a547a4de32196a4a9ed05f7a58e0de4, type: 3}
   m_Name: PathfindDataExample
   m_EditorClassIdentifier: 
-  GridWidth: 5
-  GridHeight: 5
+  GridWidth: 10
+  GridHeight: 15
   GridNodeSize: 1
   GridOriginWorlPosition: {x: 0, y: 0, z: 0}
