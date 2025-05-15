@@ -47,9 +47,9 @@ public class Pathfinder
         _openList = new List<PathNode> { startNode };
         _closedList = new List<PathNode>();
 
-        for (int x = 0; x < _grid.Width; x++)
+        for (int x = 0; x < _grid.Height; x++)
         {
-            for (int y = 0; y < _grid.Height; y++)
+            for (int y = 0; y < _grid.Width; y++)
             {
                 PathNode pathNode = _grid.GetGridObject(x, y);
                 pathNode.gCost = 99999999;
@@ -109,21 +109,21 @@ public class Pathfinder
             // Left Down
             if (currentNode.Y - 1 >= 0) neighbourList.Add(GetNode(currentNode.X - 1, currentNode.Y - 1));
             // Left Up
-            if (currentNode.Y + 1 < _grid.Height) neighbourList.Add(GetNode(currentNode.X - 1, currentNode.Y + 1));
+            if (currentNode.Y + 1 < _grid.Width) neighbourList.Add(GetNode(currentNode.X - 1, currentNode.Y + 1));
         }
-        if (currentNode.X + 1 < _grid.Width)
+        if (currentNode.X + 1 < _grid.Height)
         {
             // Right
             neighbourList.Add(GetNode(currentNode.X + 1, currentNode.Y));
             // Right Down
             if (currentNode.Y - 1 >= 0) neighbourList.Add(GetNode(currentNode.X + 1, currentNode.Y - 1));
             // Right Up
-            if (currentNode.Y + 1 < _grid.Height) neighbourList.Add(GetNode(currentNode.X + 1, currentNode.Y + 1));
+            if (currentNode.Y + 1 < _grid.Width) neighbourList.Add(GetNode(currentNode.X + 1, currentNode.Y + 1));
         }
         // Down
         if (currentNode.Y - 1 >= 0) neighbourList.Add(GetNode(currentNode.X, currentNode.Y - 1));
         // Up
-        if (currentNode.Y + 1 < _grid.Height) neighbourList.Add(GetNode(currentNode.X, currentNode.Y + 1));
+        if (currentNode.Y + 1 < _grid.Width) neighbourList.Add(GetNode(currentNode.X, currentNode.Y + 1));
 
         return neighbourList;
     }

@@ -45,8 +45,8 @@ public class Grid<TGridObject>
 
     public Vector2Int GetGridPosition(Vector3 worldPosition)
     {
-        int row = Mathf.FloorToInt((worldPosition - _originPosition).z / _cellSize);
-        int column = Mathf.FloorToInt((worldPosition - _originPosition).x / _cellSize);
+        int row, column;
+        GetRowColumn(worldPosition, out row, out column);
         return new Vector2Int(row, column);
     }
 
@@ -64,8 +64,14 @@ public class Grid<TGridObject>
     /// </summary>
     public TGridObject GetGridObject(int row, int column)
     {
-        if (row >= 0 && column >= 0 && row < _height && column < _width) return _gridArray[row, column];
-        else return default;
+        if (row >= 0 && column >= 0 && row < _height && column < _width) 
+        {
+            return _gridArray[row, column]; 
+        }
+        else 
+        {
+            return default;
+        }
     }
 
     /// <summary>

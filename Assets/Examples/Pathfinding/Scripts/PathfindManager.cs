@@ -6,6 +6,7 @@ public class PathfindManager : Singleton<PathfindManager>
 {
     [SerializeField]
     private PathfindData _data;
+    static public PathfindData Data { get => This._data; }
 
     private Pathfinder _pathfinder;
 

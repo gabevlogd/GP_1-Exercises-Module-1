@@ -19,7 +19,7 @@ public class DebugPathfind : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Vector3 randomEndPosition = new Vector3(Random.Range(0, 8), transform.position.y, Random.Range(0, 8));
+            Vector3 randomEndPosition = new Vector3(Random.Range(0, PathfindManager.Data.GridWidth), transform.position.y, Random.Range(0, PathfindManager.Data.GridHeight));
             randomEndPosition.y = transform.position.y;
 
             if (PathfindManager.TryFindPath(transform.position, randomEndPosition, out currentPath))
